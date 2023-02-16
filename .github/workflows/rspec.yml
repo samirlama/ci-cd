@@ -6,6 +6,11 @@ jobs:
     services:
       postgres:
         image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
     steps:
@@ -20,9 +25,17 @@ jobs:
     - name: Install Postgres Client
       run: sudo apt-get install libpq-dev
     - name: Create and migrate database
-      run: |
-          bundle exec rails db:create RAILS_ENV=test
-          bundle exec rails db:migrate RAILS_ENV=test
+      env:
+        POSTGRES_USER: postgres
+        POSTGRES_HOST: localhost
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
+      run: bundle exec rails db:migrate RAILS_ENV=test
     - name: Run Rspec
+      env:
+        POSTGRES_USER: postgres
+        POSTGRES_HOST: localhost
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
       run: bundle exec rspec
 
