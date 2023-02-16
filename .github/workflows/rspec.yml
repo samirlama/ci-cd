@@ -24,11 +24,9 @@ jobs:
     - name: Install Postgres Client
       run: sudo apt-get install libpq-dev
     - name: Create and migrate database
-      env:
       run: |
           bundle exec rails db:create RAILS_ENV=test
           bundle exec rails db:migrate RAILS_ENV=test
     - name: Run Rspec
-      env:
       run: bundle exec rspec
 
