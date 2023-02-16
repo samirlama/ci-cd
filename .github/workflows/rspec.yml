@@ -3,6 +3,11 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres_container:
+        image: postgres:latest
+        ports:
+          - 5432:5432
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
@@ -12,6 +17,12 @@ jobs:
       run: |
           gem install bundler -v 2.3.26
           bundle install --jobs 4 --retry 3
+    - name: Instaall Postgrec client
+      run: sudo apt-get install libpq-dev
+    - name: Create and migrate database
+      run: |
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
     - name: Run Rspec
       run: bundle exec rspec
 
