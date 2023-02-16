@@ -4,7 +4,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres_container:
+      postgres:
         image: postgres:latest
         ports:
           - 5432:5432
@@ -17,7 +17,7 @@ jobs:
       run: |
           gem install bundler -v 2.3.26
           bundle install --jobs 4 --retry 3
-    - name: Instaall Postgrec client
+    - name: Install Postgres Client
       run: sudo apt-get install libpq-dev
     - name: Create and migrate database
       run: |
