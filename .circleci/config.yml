@@ -12,7 +12,7 @@ jobs:
       - checkout
       - run:
           name: Install Bundler
-          command: gem install bundler
+          command: gem install bundler -v 2.3.26
       - run:
           name: Install Dependencies
           command: |
