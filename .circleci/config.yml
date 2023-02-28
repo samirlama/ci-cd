@@ -7,14 +7,13 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
         environment:
           BUNDLER_VERSION: 2.3.26
-          PGHOST: 127.0.0.1
           DATABASE_URL: "postgres://ubuntu@localhost:5432/ci_cd_test"
       - image: postgres:latest
         environment:
           # 1
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_cd_test
+          POSTGRES_HOST: localhost
     steps:
       - checkout
       - run:
@@ -32,6 +31,7 @@ jobs:
       - run:
           name: Migrate database
           command: |
+            bundle exec rails db:create RAILS_ENV=test
             bundle exec rails db:migrate RAILS_ENV=test
       - run:
           name: Run RSpec
