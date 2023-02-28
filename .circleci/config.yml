@@ -12,6 +12,7 @@ jobs:
         environment:
           # 1
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: ci_cd_test
           POSTGRES_HOST: localhost
     steps:
