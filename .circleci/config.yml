@@ -11,6 +11,7 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update && sudo apt-get install -y nodejs postgresql-client libpq-dev
+            gem install bundler -v 2.3.26
             bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
 #      - run:
 #          name: Run RuboCop
