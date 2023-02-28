@@ -23,6 +23,11 @@ jobs:
 #          command: |
 #            bundle exec rubocop
       - run:
+          name: Create and migrate database
+          command: |
+            bundle exec rails db:create RAILS_ENV=test
+            bundle exec rails db:migrate RAILS_ENV=test
+      - run:
           name: Run RSpec
           command: |
             bundle exec rspec
