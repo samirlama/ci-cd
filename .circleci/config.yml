@@ -18,7 +18,6 @@ jobs:
           name: Install Bundler
           command: |
             gem install bundler -v 2.3.26
-            bundle update --bundler
       - run:
           name: Install Dependencies
           command: |
