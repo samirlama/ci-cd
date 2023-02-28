@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
-      - image: circleci/postgres:12.3
+#      - image: circleci/postgres:12.3
         environment:
           # 1
           BUNDLER_VERSION: 2.3.26
@@ -19,7 +19,7 @@ jobs:
           name: Install Dependencies
           command: |
             sudo apt-get update && sudo apt-get install -y nodejs postgresql-client libpq-dev
-            bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+            bundle check --path=vendor/bundle || bundle _2.3.26_ install --path=vendor/bundle --jobs=4 --retry=3
 #      - run:
 #          name: Run RuboCop
 #          command: |
