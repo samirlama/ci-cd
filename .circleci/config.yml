@@ -7,7 +7,7 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
         environment:
           BUNDLER_VERSION: 2.3.26
-          DATABASE_URL: "postgres://ubuntu@localhost:5432/ci_cd_test"
+          DATABASE_URL: "postgres://postgres@localhost:5432/ci_cd_test"
       - image: postgres:latest
         environment:
           # 1
