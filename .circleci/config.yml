@@ -5,16 +5,20 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
-#      - image: circleci/postgres:12.3
+        environment:
+          PGHOST: 127.0.0.1
+          DATABASE_URL: "postgres://ubuntu@localhost:5432/ci_cd_test"
+      - image: postgres:latest
         environment:
           # 1
           BUNDLER_VERSION: 2.3.26
+          POSTGRES_USER: postgres
+          POSTGRES_DB: ci_cd_test
     steps:
       - checkout
       - run:
           name: Install Bundler
-          command: |
-            gem install bundler -v 2.3.26
+          command: gem install bundler -v 2.3.26
       - run:
           name: Install Dependencies
           command: |
@@ -24,9 +28,6 @@ jobs:
 #          name: Run RuboCop
 #          command: |
 #            bundle exec rubocop
-      - run: sudo service postgresql start
-      - run: sudo -u postgres psql -c "CREATE USER postgres WITH CREATEDB LOGIN PASSWORD 'postgres';"
-      - run: sudo -u postgres createdb -O postgres ci_cd_test
       - run:
           name: Migrate database
           command: |
