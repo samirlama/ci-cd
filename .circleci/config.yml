@@ -5,6 +5,7 @@ jobs:
     working_directory: ~/repo
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/postgres:12.3
         environment:
           # 1
           BUNDLER_VERSION: 2.3.26
