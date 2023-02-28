@@ -11,8 +11,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install Bundler
-        command: gem install bundler
+          name: Install Bundler
+          command: gem install bundler
       - run:
           name: Install Dependencies
           command: |
