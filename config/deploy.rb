@@ -19,6 +19,12 @@ set :default_env, {
 PATH: '$HOME/.nvm/versions/node/v10.24.1/bin/:$PATH'
 }
 
+set :ssh_options, {
+  forward_agent: true,
+  auth_methods: ["publickey"],
+  keys: [ENV['SSH_PRIVATE_KEY']]
+}
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
