@@ -32,9 +32,37 @@ jobs:
       - run:
           name: Migrate database
           command: |
-            bundle exec rails db:create RAILS_ENV=test
             bundle exec rails db:migrate RAILS_ENV=test
       - run:
           name: Run RSpec
           command: |
             bundle exec rspec
+
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          BUNDLER_VERSION: 2.3.26
+    steps:
+      - checkout
+      - run:
+          name: Install Bundler
+          command: |
+            gem install bundler -v 2.3.26
+            bundle check --path=vendor/bundle || bundle _2.3.26_ install --path=vendor/bundle --jobs=4 --retry=3
+      - run:
+          name: Deploy rails using capistrano
+          command: bundle exec cap production deploy
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
