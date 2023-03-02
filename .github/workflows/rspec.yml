@@ -56,5 +56,5 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy with Capistrano
         run: bundle exec cap production deploy
-        with:
+        env:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
