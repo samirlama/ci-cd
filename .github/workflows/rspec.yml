@@ -29,8 +29,9 @@ jobs:
           bundle exec rails db:migrate RAILS_ENV=test
     - name: Run Rspec
       run: bundle exec rspec
+
   deploy:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     steps:
