@@ -53,7 +53,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Set up SSH
-        uses: ssh-action/ssh-agent@v1.0.0
+        uses: ssh-actions/ssh-agent@v3.0.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy with Capistrano
