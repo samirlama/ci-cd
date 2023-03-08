@@ -1,0 +1,14 @@
+---
+# tasks file for /home/denji/Desktop/postgres-ansible/roles/postgres
+- name: Install Postgres 
+  become: true
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items: 
+     - postgresql 
+     - postgresql-contrib
+     - libpq-dev
+  
+- name: Create SuperUser
+  vars: 
+      username: 'dev'
+  shell: sudo -u postgres createuser -s {{username}}

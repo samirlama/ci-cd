@@ -1,0 +1,4 @@
+---
+# handlers file for /home/denji/Desktop/postgres-ansible/roles/postgres
+- name: Start Postgres
+  service: name=postgresql state=started

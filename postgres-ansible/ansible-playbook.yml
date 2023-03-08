@@ -1,0 +1,32 @@
+---
+
+- hosts: web_servers
+  tasks: 
+    - name: Clone rbenv repository
+      shell: | 
+        curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+    - name: Set RBENV path
+      shell: |
+        echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+        echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+        
+    - name: Install ruby
+      vars: 
+        ruby_version: 2.7.6 
+      shell: |
+        source ~/.bashrc
+        ~/.rbenv/bin/rbenv install {{ruby_version}}
+      args: 
+        executable: /bin/bash
+    - name: Set Ruby and install bundler 
+      vars:
+        ruby_version: 2.7.6
+      shell: |
+        ~/.rbenv/bin/rbenv global {{ruby_version}}; 
+        echo "gem: --no-document" > ~/.gemrc;
+        ~/.rbenv/shims/gem install bundler
+      args: 
+        executable: /bin/bash  
+  roles:
+    - postgres
+  
