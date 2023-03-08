@@ -1,7 +1,12 @@
 ---
 
 - hosts: web_servers
-  tasks: 
+  tasks:
+    - name: Install git and curl
+      package:
+        name:
+          - git
+          - curl
     - name: Clone rbenv repository
       shell: | 
         curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
